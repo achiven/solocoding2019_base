@@ -27,8 +27,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   geolocator: ^3.0.1
   open_weather_api: ^1.5.5
-
-
+  jaguar_serializer: ^2.2.12
+  jaguar_resty: ^2.10.12
 
 
 
