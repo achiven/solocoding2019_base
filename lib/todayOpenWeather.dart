@@ -114,5 +114,6 @@ class _TodayWeatherState extends State<TodayWeather> {
     _todayWeather = temp2[0];
 
     debugPrint('$_todayWeather');
+//    Navigator.pop(context, _todayWeather);
   }
 }
