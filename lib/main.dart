@@ -5,6 +5,7 @@ import 'package:open_weather_api/open_weather_api.dart';
 import 'package:jaguar_resty/jaguar_resty.dart';
 
 import 'todayOpenWeather.dart';
+import 'FiveDayWeatherForcast.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +20,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: StartPage('Hello World'));
-//        home: CupertinoPage());
   }
 }
 
@@ -38,6 +38,12 @@ class MyAppState extends State<StartPage> {
   static final String WAITING = "Waiting...";
   String _todayWeather = WAITING;
   String _response = '';
+
+  final textStyle = new TextStyle(
+      fontSize: 47.0,
+      color: const Color(0xFF000000),
+      fontWeight: FontWeight.w200,
+      fontFamily: "Roboto");
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +71,17 @@ class MyAppState extends State<StartPage> {
           FutureBuilder(
             future: _showTodayWeather(),
             builder: (context, _response) {
-              return Text(_todayWeather);
+              return new Text(
+                _todayWeather,
+                style: textStyle,
+              );
+            },
+          ),
+          RaisedButton(
+            child: Text('5일 예보'),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FivieForecast(_position)));
             },
           ),
         ],

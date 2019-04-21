@@ -18,6 +18,12 @@ class _TodayWeatherState extends State<TodayWeather> {
   String _todayWeather = WAITING;
   String _response = '';
 
+  final textStyle = new TextStyle(
+      fontSize: 25.0,
+      color: const Color(0xFF000000),
+      fontWeight: FontWeight.w200,
+      fontFamily: "Roboto");
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,8 +35,11 @@ class _TodayWeatherState extends State<TodayWeather> {
           children: <Widget>[
             FutureBuilder(
               future: _showTodayWeather(),
-              builder: (context, _response){
-                return Text(_todayWeather);
+              builder: (context, _response) {
+                return Text(
+                  '오늘의 날씨 : $_todayWeather',
+                  style: textStyle,
+                );
               },
             ),
           ],
@@ -39,7 +48,6 @@ class _TodayWeatherState extends State<TodayWeather> {
     );
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -47,14 +55,12 @@ class _TodayWeatherState extends State<TodayWeather> {
   }
 
   void _initPlatformState() {
-
     _getCurrentPosition();
 
     _showTodayWeather();
   }
 
   void _getCurrentPosition() async {
-
     Position position;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -80,11 +86,9 @@ class _TodayWeatherState extends State<TodayWeather> {
     debugPrint('$_position');
   }
 
-
   Future<void> _showTodayWeather() async {
-
-    if(_position == null){
-      return ;
+    if (_position == null) {
+      return;
     }
 
     globalClient = IOClient();
@@ -108,7 +112,6 @@ class _TodayWeatherState extends State<TodayWeather> {
   }
 
   void recognizeWeather() {
-
     List<String> temp1 = _response.split("main: ");
     List<String> temp2 = temp1[1].split(',');
     _todayWeather = temp2[0];
