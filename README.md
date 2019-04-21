@@ -1,2 +1,1 @@
-# solocoding2019_base
-Base Project for solocoding
+30/0/5
