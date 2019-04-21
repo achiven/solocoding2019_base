@@ -21,8 +21,6 @@ class _FivieForecastState extends State<FivieForecast> {
   Position _position;
   String _OWM_API_KEY = "0a09112840d8c1ce2c6b44fef107af0a";
   static final String WAITING = "Waiting...";
-  String _todayWeather = WAITING;
-  String _response = '';
   List<HourlyForecast> _forecasts;
   List<String> _dailyForecasts;
 
@@ -48,7 +46,7 @@ class _FivieForecastState extends State<FivieForecast> {
         body: Column(
           children: <Widget>[
             FutureBuilder(
-              future: _showTodayWeather(),
+              future: _getFiveDaysWeather(),
               builder: (context, _response) {
                 return Expanded(
                   child: ListView.builder(
@@ -77,10 +75,10 @@ class _FivieForecastState extends State<FivieForecast> {
   }
 
   void _initPlatformState() {
-    _showTodayWeather();
+    _getFiveDaysWeather();
   }
 
-  Future<void> _showTodayWeather() async {
+  Future<void> _getFiveDaysWeather() async {
     if (_position == null) {
       return;
     }
@@ -100,8 +98,11 @@ class _FivieForecastState extends State<FivieForecast> {
   void recognizeWeather() {
     HourlyForecast temp;
     int k = 0;
+
+    final ONE_DAY = 8;      // hourlyForecastsByCoordinate return forecast based on 3hours.
+
     _dailyForecasts = new List<String>();
-    for (int i = 0; i < _forecasts.length; i = 8 * k) {
+    for (int i = 0; i < _forecasts.length; i = ONE_DAY * k) {
       temp = _forecasts[i];
       _dailyForecasts.add(temp.conditions[0].main);
 
